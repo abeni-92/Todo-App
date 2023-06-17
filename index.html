@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Todo</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js" defer></script>
+</head>
+<body>
+	<div class="main">
+		<div class="nav">
+			<h1>Todo</h1>
+			<a href="#" target="_blank">Login</a>
+		</div>
+		<div class="body">
+			<div class="sidebar">
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Today</a></li>
+					<li><a href="#">Week</a></li>
+					<li><span>Projects</span></li>
+					<ul>
+						<li><a href="#">gym</a></li>
+						<li><a href="#">study</a></li>
+					</ul>
+					<li><a href="#">notes</a></li>
+					<li><a href="#"><i class="fa-solid fa-circle-plus"></i></a></li>
+				</ul>
+			</div>
+			<div class="content">
+				<div class="row">
+					<!-- modal showing  details when clicked-->
+					<div class="modal">
+						<div class="modal-content">
+							<i class="fa-solid fa-x"></i>
+							<h2>some Title</h2>
+							<h4>Project: <span>today</span></h4>
+							<h4>Priority: <span>Medium</span></h4>
+							<h4>due date: <span>june 16th, 2021</span></h4>
+							<h4>details <span>some details</span></h4>
+						</div>
+					</div>
+					<!-- left side of the todo row -->
+					<div class="left">
+						<input type="checkbox">
+						<p>Play music</p>
+					</div>
+					<!-- right side of the todo row -->
+					<div class="right">
+						<button id="btn">Details</button>
+						<p>Jun 16th</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+						<i class="fa-solid fa-trash-can"></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="left">
+						<input type="checkbox">
+						<p>Play music</p>
+					</div>
+					<div class="right">
+						<button>Details</button>
+						<p>Jun 16th</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+						<i class="fa-solid fa-trash-can"></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="left">
+						<input type="checkbox">
+						<p>Play music</p>
+					</div>
+					<div class="right">
+						<button>Details</button>
+						<p>Jun 16th</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+						<i class="fa-solid fa-trash-can"></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="left">
+						<input type="checkbox">
+						<p>Play music</p>
+					</div>
+					<div class="right">
+						<button>Details</button>
+						<p>Jun 16th</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+						<i class="fa-solid fa-trash-can"></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="left">
+						<input type="checkbox">
+						<p>Play music</p>
+					</div>
+					<div class="right">
+						<button>Details</button>
+						<p>Jun 16th</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+						<i class="fa-solid fa-trash-can"></i>
+					</div>
+				</div>
+				<div class="row">
+					<div class="left">
+						<input type="checkbox">
+						<p>Play music</p>
+					</div>
+					<div class="right">
+						<button>Details</button>
+						<p>Jun 16th</p>
+						<i class="fa-solid fa-pen-to-square"></i>
+						<i class="fa-solid fa-trash-can"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
