@@ -12,36 +12,68 @@
 	<div class="main">
 		<div class="nav">
 			<h1>Todo</h1>
-			<a href="#" target="_blank">Login</a>
+			<a href="#" class="header" target="_blank">Login</a>
 		</div>
 		<div class="body">
 			<div class="sidebar">
+				<div class="todo-modal">
+					<div class="todo-modal-content">
+						<div class="todo-header">
+							<h2>Create new todo</h2>
+							<a href="#"><i class="fa-solid fa-x"></i></a>
+						</div>
+						<div class="todo-content">
+							<ul class="todo-side">
+								<li><a href="#" class="link active" data-name="Todo">Todo</a></li>
+								<li><a href="#" class="link" data-name="Project">Project</a></li>
+								<li><a href="#" class="link" data-name="Note">Note</a></li>
+							</ul>
+							<div class="border"></div>
+							<div class="todo-body">
+								<input type="text" name="title" id="title" placeholder="Title: Study" required>
+								<textarea name="details" id="details" class="input" cols="40" rows="10" placeholder="Details: eg AI,Cyber.. " required></textarea>
+								<input type="date" name="date" class="input">							
+								<button class="add-btn-todo">Create <span id="task-btn">Todo</span></button>
+							</div>
+							<div class="todo-body project hidden">
+								<input type="text" name="project" id="project" placeholder="Title: Building" required>	
+								<button class="add-btn-todo">Create <span id="task-btn">Project</span></button>
+							</div>
+							<div class="todo-body note hidden">
+								<input type="text" name="note" id="note" placeholder="Title:" required>	
+								<textarea name="details" id="details" cols="40" rows="10" placeholder="Details:" required></textarea>
+								<button class="add-btn-todo">Create <span id="task-btn">Note</span></button>
+							</div>
+						</div>
+					</div>
+				</div>
 				<ul>
 					<li><a href="#">Home</a></li>
 					<li><a href="#">Today</a></li>
 					<li><a href="#">Week</a></li>
-					<li><span>Projects</span></li>
+					<li><span id="projects">Projects</span></li>
 					<ul>
 						<li><a href="#">gym</a></li>
 						<li><a href="#">study</a></li>
 					</ul>
 					<li><a href="#">notes</a></li>
-					<li><a href="#"><i class="fa-solid fa-circle-plus"></i></a></li>
+					<li><a href="#"><i class="add fa-solid fa-circle-plus"></i></a></li>
 				</ul>
 			</div>
+			<!-- <div class="border"></div> -->
 			<div class="content">
-				<div class="row">
-					<!-- modal showing  details when clicked-->
-					<div class="modal">
-						<div class="modal-content">
-							<i class="fa-solid fa-x"></i>
-							<h2>some Title</h2>
-							<h4>Project: <span>today</span></h4>
-							<h4>Priority: <span>Medium</span></h4>
-							<h4>due date: <span>june 16th, 2021</span></h4>
-							<h4>details <span>some details</span></h4>
-						</div>
+				<!-- modal showing  details when clicked-->
+				<div class="modal">
+					<div class="modal-content">
+						<i class="fa-solid fa-x"></i>
+						<h2>some Title</h2>
+						<h4>Project: <span>today</span></h4>
+						<h4>Priority: <span>Medium</span></h4>
+						<h4>due date: <span>june 16th, 2021</span></h4>
+						<h4>details <span>some details</span></h4>
 					</div>
+				</div>
+				<div class="row">
 					<!-- left side of the todo row -->
 					<div class="left">
 						<input type="checkbox">
@@ -49,7 +81,7 @@
 					</div>
 					<!-- right side of the todo row -->
 					<div class="right">
-						<button id="btn">Details</button>
+						<button class="btn">Details</button>
 						<p>Jun 16th</p>
 						<i class="fa-solid fa-pen-to-square"></i>
 						<i class="fa-solid fa-trash-can"></i>
@@ -61,7 +93,7 @@
 						<p>Play music</p>
 					</div>
 					<div class="right">
-						<button>Details</button>
+						<button class="btn">Details</button>
 						<p>Jun 16th</p>
 						<i class="fa-solid fa-pen-to-square"></i>
 						<i class="fa-solid fa-trash-can"></i>
@@ -73,7 +105,7 @@
 						<p>Play music</p>
 					</div>
 					<div class="right">
-						<button>Details</button>
+						<button class="btn">Details</button>
 						<p>Jun 16th</p>
 						<i class="fa-solid fa-pen-to-square"></i>
 						<i class="fa-solid fa-trash-can"></i>
@@ -85,7 +117,7 @@
 						<p>Play music</p>
 					</div>
 					<div class="right">
-						<button>Details</button>
+						<button class="btn">Details</button>
 						<p>Jun 16th</p>
 						<i class="fa-solid fa-pen-to-square"></i>
 						<i class="fa-solid fa-trash-can"></i>

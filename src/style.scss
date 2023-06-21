@@ -11,10 +11,7 @@ $fourth-color: #f0595b;
 // @import "../scss/brands.scss";
 // @import "../scss/sharp-solid.scss";
 
-$fa-font-path: "../dist/webfonts";
-
-
-
+// $fa-font-path: "../dist/webfonts";
 
 *,*::after,*::before {
 	box-sizing: border-box;
@@ -31,6 +28,21 @@ h2 {
 	font-size: 2rem;
 	margin: 0;
 }
+li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+
+.link {
+	font-size: 1.2rem;
+	color: #0d2574;
+}
+.link:hover{
+	color: #fff;
+}
+
 button {
 	font-size: 1.1rem;
 	padding: 4px 6px;
@@ -76,7 +88,7 @@ button {
 		align-items: flex-start;
 		background-color: rgb(99, 149, 192);
 		color: $primary-color;
-		position: relative;
+		// position: relative;
 		.sidebar {
 			padding: 20px;
 			width: 15vw;
@@ -108,9 +120,11 @@ button {
 				}
 				i {
 					font-size: 3rem;
-					position: absolute;
-					bottom: 20px;
-					left: 50px;
+					margin: 150px auto 0 auto;
+					// position: absolute;
+					// bottom: 20px;
+					// left: 50px;
+					// margin-top: 50px;
 				}
 			}
 		}
@@ -151,33 +165,33 @@ button {
 					color: #f2f1f0;
 				}
 
-				.modal {
-					display: none; /* Hidden by default */
-					position: fixed; /* Stay in place */
-					z-index: 1; /* Sit on top */
-					left: 0;
-					top: 0;
-					width: 100%; /* Full width */
-					height: 100%; /* Full height */
-					overflow: auto; /* Enable scroll if needed */
-					background-color: rgb(0,0,0); /* Fallback color */
-					background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-					backdrop-filter: blur(3px);
-				}
-				.modal-content {
-					position: relative;
-					color: #b1d5e6;;
-					background-color: #3fa6d6;
-					margin: 20% auto; /* 15% from the top and centered */
-					padding: 20px;
-					border: 1px solid #888;
-					width: 500px; /* Could be more or less, depending on screen size */
-					display: flex;
-					flex-direction: column;
-					align-items: start;
-					justify-content: baseline;
-					border-radius: 10px;
-					animation: 0.5s fadeIn ease-in;
+				// .modal {
+				// 	display: hidden; /* Hidden by default */
+				// 	position: fixed; /* Stay in place */
+				// 	z-index: 1; /* Sit on top */
+				// 	left: 0;
+				// 	top: 0;
+				// 	width: 100%; /* Full width */
+				// 	height: 100%; /* Full height */
+				// 	overflow: auto; /* Enable scroll if needed */
+				// 	background-color: rgb(0,0,0); /* Fallback color */
+				// 	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+				// 	backdrop-filter: blur(3px);
+				// }
+				// .modal-content {
+				// 	position: relative;
+				// 	color: #b1d5e6;;
+				// 	background-color: #3fa6d6;
+				// 	margin: 20% auto; /* 15% from the top and centered */
+				// 	padding: 20px;
+				// 	border: 1px solid #888;
+				// 	width: 500px; /* Could be more or less, depending on screen size */
+				// 	display: flex;
+				// 	flex-direction: column;
+				// 	align-items: start;
+				// 	justify-content: baseline;
+				// 	border-radius: 10px;
+				// 	animation: 0.5s fadeIn ease-in;
 					
 					i {
 						position: absolute;
@@ -185,12 +199,71 @@ button {
 						right: 10px;
 						font-size: 1.5rem;
 					}
-				}
+				// }
 			}
 		}
 	}
 
 }
+
+.modal {
+		display: block; /* Hidden by default */
+		position: fixed; /* Stay in place */
+		z-index: 1; /* Sit on top */
+		left: 0;
+		top: 0;
+		width: 100%; /* Full width */
+		height: 100%; /* Full height */
+		overflow: auto; /* Enable scroll if needed */
+		background-color: rgb(0,0,0); /* Fallback color */
+		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+		backdrop-filter: blur(3px);
+		animation: 0.5s fadeIn;
+	}
+	
+.modal-content {
+	position: relative;
+	color: #b1d5e6;;
+	background-color: #27789e;
+	margin: 20% auto; /* 15% from the top and centered */
+	// padding: 20px;
+	// border: 1px solid #888;
+	width: 600px; /* Could be more or less, depending on screen size */
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: space-between;
+	// border-radius: 10px;
+	animation: 0.5s fadeIn ease-in;
+}
+.todo-header {
+	padding: 20px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	border: 1px solid #00a27a;
+	// border-radius: ;
+	justify-content: space-between;
+	background-color: #00a27a;
+}
+.todo-content {
+	display: flex;
+	height: 400px;
+	// padding: 20px;
+}
+.rightTodo {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	width: 100%;
+	padding: 20px;
+}
+.sideTodo {
+	margin-right: 10px;
+	border-right: 1px solid#0d4caa;
+	padding: 10px;
+}
+
 
 @keyframes fadeIn {
 	0% {

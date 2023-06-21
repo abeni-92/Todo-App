@@ -15,6 +15,23 @@ h2 {
   margin: 0;
 }
 
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+.link {
+  font-size: 1.2rem;
+  color: #0d2574;
+}
+
+.link:hover {
+  color: #fff;
+}
+
 button {
   font-size: 1.1rem;
   padding: 4px 6px;
@@ -55,7 +72,6 @@ button {
   align-items: flex-start;
   background-color: rgb(99, 149, 192);
   color: #392c4e;
-  position: relative;
 }
 .main .body .sidebar {
   padding: 20px;
@@ -87,9 +103,7 @@ button {
 }
 .main .body .sidebar ul i {
   font-size: 3rem;
-  position: absolute;
-  bottom: 20px;
-  left: 50px;
+  margin: 150px auto 0 auto;
 }
 .main .body .content {
   padding: 20px 40px;
@@ -127,8 +141,15 @@ button {
   background-color: transparent;
   color: #f2f1f0;
 }
-.main .body .content .row .modal {
-  display: none; /* Hidden by default */
+.main .body .content .row i {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+}
+
+.modal {
+  display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -139,27 +160,49 @@ button {
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
   backdrop-filter: blur(3px);
+  animation: 0.5s fadeIn;
 }
-.main .body .content .row .modal-content {
+
+.modal-content {
   position: relative;
   color: #b1d5e6;
-  background-color: #3fa6d6;
+  background-color: #27789e;
   margin: 20% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 500px; /* Could be more or less, depending on screen size */
+  width: 600px; /* Could be more or less, depending on screen size */
   display: flex;
   flex-direction: column;
   align-items: start;
-  justify-content: baseline;
-  border-radius: 10px;
+  justify-content: space-between;
   animation: 0.5s fadeIn ease-in;
 }
-.main .body .content .row .modal-content i {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5rem;
+
+.todo-header {
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #00a27a;
+  justify-content: space-between;
+  background-color: #00a27a;
+}
+
+.todo-content {
+  display: flex;
+  height: 400px;
+}
+
+.rightTodo {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding: 20px;
+}
+
+.sideTodo {
+  margin-right: 10px;
+  border-right: 1px solid #0d4caa;
+  padding: 10px;
 }
 
 @keyframes fadeIn {

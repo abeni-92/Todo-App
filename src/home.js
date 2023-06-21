@@ -1,9 +1,12 @@
 import './style.css';
 
+import { createSideBarLink, newElement } from './helper';
+import { addTodo } from './script';
 // import '@fortawesome/fontawesome-svg-core';
 // import '@fortawesome/free-brands-svg-icons';
 // import '@fortawesome/free-solid-svg-icons';
 // import '@fortawesome/free-regular-svg-icons';
+// const main = document.getElementById("main");
 
 function createNav() {
 	const nav = newElement('div', '');
@@ -16,20 +19,12 @@ function createNav() {
 	return nav;
 }
 
-function createBody() {
-	const body = newElement('div', '');
-	body.classList.add('body');
-	
-	body.append(createSideBar(), createContent());
-
-	return body;
-}
-
 function createSideBar() {
 	const sideBar = newElement('div', '');
 	sideBar.classList.add('sidebar');
 
 	const ul = newElement('ul', '');
+
 	const home = createSideBarLink('Home', '#');
 	const today = createSideBarLink('Today', '#');
 	const week = createSideBarLink('Week', '#');
@@ -41,69 +36,89 @@ function createSideBar() {
 	const ul2 = newElement('ul', '');
 	const gym = createSideBarLink('Gym', '#');
 	const study = createSideBarLink('Study', '#');
-
-	// const addBtn = document.createElement('i');
-	// addBtn.classList('fa-circle');
-	// const li = document.createElement('li');
-	// const a = document.createElement('a');
-	// a.innerText = addBtn;
-	// li.append(a);
-	// const btn = createSideBarLink(addBtn, '#');
-
 	ul2.append(gym, study);
 
-	ul.append(home, today, week, projects, ul2);
+	const notes = createSideBarLink('Notes', '#');
+
+	// add button to add todolist
+	const add = newElement('li', '');
+	const a = newElement('a','');
+	const i = newElement('i', '');
+	i.classList.add("fa-circle-plus");
+	i.classList.add("fa-solid");
+	a.append(i);
+	add.append(a);
+	add.setAttribute("id", "add");
+
+	add.addEventListener("click", addTodo);
+
+	ul.append(home, today, week, projects, ul2, notes, add);
 	sideBar.append(ul);
 
 	return sideBar;
 } 
 
-function createSideBarLink(link, href) {
-	const li = newElement('li', '');
-	const a = newElement('a', link);
-
-	// a.textContent = link;
-	a.href = href;
-	li.append(a);
-
-	return li;
-}
-
-function createContent() {
+function createContent(){
 	const content = document.createElement('div');
-	const row = document.createElement('div');
-	const left = document.createElement('div');
-	const right = document.createElement('div');
-
-	const checkbox = document.createElement('checkbox');
-	const p1 = newElement('p', 'Play guitar');
-
-	left.classList.add('left');
-	left.append(checkbox, p1);
-
-	const btn = newElement('button', 'details');
-	const p2 = newElement('p', 'jun 16th');
-
-	right.classList.add('right')
-	right.append(btn, p2);
-	
-	row.classList.add('row')
-	row.append(left, right);
-
 	content.classList.add('content');
-	content.append(row);
-	content.append(row);
+	
+	const row1 = createRow('Play guitar', '16th june');
+	const row2 = createRow('Study', 'june 17th');
+	const row3 = createRow('Play guitar', '16th june');
+	const row4 = createRow('Study', 'june 17th');
+	const row5 = createRow('buy grocery', '20th june');
+	const row6 = createRow('listen podcast', 'june 22nd');
+
+	content.append(row1);
+	content.append(row2);
+	content.append(row3);
+	content.append(row4);
+	content.append(row5);
+	content.append(row6);
 
 	return content;
 }
 
+function createRow(tk, dt) {
+	const row = document.createElement('div');
+	row.classList.add('row')
+	const left = document.createElement('div');
+	left.classList.add('left');
+	const right = document.createElement('div');
+	right.classList.add('right');
+
+	const checkbox = document.createElement('input');
+	checkbox.setAttribute("type", "checkbox");
+	const task = newElement('p', tk);
+
+	left.append(checkbox, task);
+
+	const details = newElement('button', 'details');
+	const date = newElement('p', dt);
+
+	const editClass = ['fa-pen-to-square', 'fa-solid'];
+	const edit = document.createElement('i');
+	edit.classList.add(...editClass);
+
+	const deleteClass = ['fa-solid', 'fa-trash-can'];
+	const del = document.createElement('i');
+	del.classList.add(...deleteClass);
+
+	right.append(details, date, edit, del);
+	
+	row.append(left, right);
+
+	return row;
+}
+
 function displayModal() {
+	// const content = document.querySelector('content');
 	const modal = document.createElement('div');
 	modal.classList.add('modal');
 	const modalContent = document.createElement('div');
 	modalContent.classList.add('modal-content');
 
-	const h2 = newElement('h2', 'Some title');
+	const title = newElement('h2', 'Some title');
 	const project = newElement('h4', 'Project: ')
 	const priority = newElement('h4', 'Priority: ');
 	const dueDate = newElement('h4', 'Due date: ');
@@ -119,17 +134,20 @@ function displayModal() {
 	dueDate.append(span3);
 	details.append(span4);
 	
-	modalContent.append(project, priority, dueDate, details);
+	modalContent.append(title, project, priority, dueDate, details);
 	modal.append(modalContent);
 
-	return {modal, modalContent};
+	return  modal;
 }
 
-function newElement(tag, value) {
-	const elt = document.createElement(tag);
-	elt.textContent = value;
+function createBody() {
+	const body = newElement('div', '');
+	body.classList.add('body');
+	
+	body.append(createSideBar(), createContent());
 
-	return elt;
+	return body;
 }
+
 
 export {createNav, createBody};

@@ -18,18 +18,182 @@ h2 {
 	font-size: 2rem;
 	margin: 0;
 }
+h1 {
+	font-size: 4rem;
+	margin: 0;
+	// margin-trim: none;
+}
+
+.header {
+	color: $primary-color;
+	font-size: 2rem;
+	text-decoration: none;
+	background-color: #3fa6d6;
+	padding: 8px 16px;
+	border-radius: 4px;
+}
+.header:hover {
+	background-color: #268ebe;
+	color: #c95759;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0px 10px;
+	// color: #082921;
+}
+
+#projects {
+	font-size: 2rem;
+}
+
+a {
+	color: #914614;
+	text-decoration: none;
+	font-size: 1.6rem;
+}
+
+a:visited {
+	color: #502f04;
+}
+
+a:hover,
+.active {
+	color:#502f04;
+	text-decoration: underline;
+}
+
+.add{
+	font-size: 3rem;
+	position: absolute;
+	bottom: 20px;
+	left: 50px;
+}
+
 button {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 	padding: 4px 6px;
 	border-radius: 4px;
 	border: 1px solid #96494b;
 	background-color: #c95759;
 	color: #89cff0;
 }
-// h1 {
-// 	font-size: 54px;
-	
+
+.todo-modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	backdrop-filter: blur(3px);
+}
+.todo-modal-content {
+	position: relative;
+	color: #98c9e0;
+	background-color: #337797;
+	margin: 10% auto; /* 15% from the top and centered */
+	// padding: 20px;
+	border: 1px solid #888;
+	width: 60%; /* Could be more or less, depending on screen size */
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: baseline;
+	// border-radius: 10px;
+	animation: 0.5s fadeIn ease-in;
+}
+
+.todo-header {
+	background-color:#12886a;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+
+	i {
+		font-size: 2rem;
+	}
+	i:hover {
+		color: red;
+	}
+}
+.todo-content {
+	width: 100%;
+	padding: 20px;
+	display: flex;
+	align-items: start;
+	justify-content: space-around;
+	color: #98c9e0;
+}
+
+.todo-side {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	// border-right: 3px solid #00a27a;
+	// height: 100%;
+}
+
+// .border {
+// 	border-left: 5px solid #047263;
+// 	height: 100%;
+// 	position: fixed;
+// 	left: 200px;
+// 	top: 0;
 // }
+
+.todo-body {
+	animation: 0.3s fadeIn ease-in;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	justify-content: baseline;
+	gap: 15px;
+	padding: 10px;
+	margin-left: 10px;
+	width: 100%;
+	height: 400px;
+	border-left: 6px solid #00a27a;
+	input {
+		width: 100%;
+		padding: 10px;
+		outline: none;
+	}
+	textarea {
+		padding: 10px;
+		width: 100%;
+	}
+}
+
+.hidden {
+	display: none;
+}
+
+.add-btn-todo {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	background-color:#12886a;
+	color: #f1f2f3;
+	border: 1px solid #00a27a;
+	width: 30%;
+}
+
+.add-btn-todo:hover{
+	background-color: transparent;
+}
+
+.todo-show-modal {
+	display: block;
+}
 
 .main {
 	padding: 80px 100px;
@@ -40,22 +204,6 @@ button {
 		align-items: center;
 		justify-content: space-between;
 		padding: 20px;
-		h1 {
-			font-size: 4rem;
-			// margin-trim: none;
-		}
-		a {
-			color: $primary-color;
-			font-size: 2rem;
-			text-decoration: none;
-			background-color: #3fa6d6;
-			padding: 8px 16px;
-			border-radius: 4px;
-		}
-		a:hover {
-			background-color: #6bb8db;
-			color: #f2f1f0;
-		}
 	}
 	
 	.body {
@@ -67,38 +215,6 @@ button {
 		.sidebar {
 			padding: 20px;
 			width: 15vw;
-			ul {
-				list-style: none;
-				margin: 0;
-				padding: 0px 20px;
-				color: #082921;
-
-				span {
-					font-size: 2rem;
-				}
-
-				li {
-					padding: 0px;
-				}
-
-				a {
-					text-decoration: none;
-					font-size: 1.6rem;
-				}
-				a:visited {
-					color: #1c5243;
-				}
-				a:hover {
-					color: $primary-color;
-					text-decoration: underline;
-				}
-				i {
-					font-size: 3rem;
-					position: absolute;
-					bottom: 20px;
-					left: 50px;
-				}
-			}
 		}
 
 		.content {
@@ -108,8 +224,50 @@ button {
 			width: 100%;
 			font-size: 1.2rem;
 			color: #89cff0;
-			border-left: 2px solid rgb(40, 117, 184);
+			border-left: 6px solid rgb(40, 117, 184);
 
+			.modal {
+				display: none; /* Hidden by default */
+				position: fixed; /* Stay in place */
+				z-index: 1; /* Sit on top */
+				left: 0;
+				top: 0;
+				width: 100%; /* Full width */
+				height: 100%; /* Full height */
+				overflow: auto; /* Enable scroll if needed */
+				background-color: rgb(0,0,0); /* Fallback color */
+				background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+				backdrop-filter: blur(3px);
+			}
+			.modal-content {
+				position: relative;
+				color: #b1d5e6;;
+				background-color: #2e7292;
+				margin: 20% auto; /* 15% from the top and centered */
+				padding: 20px;
+				border: 1px solid #888;
+				width: 500px; /* Could be more or less, depending on screen size */
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				justify-content: baseline;
+				border-radius: 10px;
+				animation: 0.5s fadeIn ease-in;
+				i {
+					position: absolute;
+					top: 10px;
+					right: 10px;
+					font-size: 1.5rem;
+				}
+				i:hover {
+					background-color: transparent;
+					color: #f2f1f0;
+				}
+			}
+			.show-modal {
+				display: block;
+			}
+			
 			.row {
 				display: flex;
 				align-items: center;
@@ -132,46 +290,9 @@ button {
 					justify-content: start;
 					gap: 20px;
 				}
-				button:hover,
-				i:hover {
+				button:hover {
 					background-color: transparent;
 					color: #f2f1f0;
-				}
-
-				.modal {
-					display: none; /* Hidden by default */
-					position: fixed; /* Stay in place */
-					z-index: 1; /* Sit on top */
-					left: 0;
-					top: 0;
-					width: 100%; /* Full width */
-					height: 100%; /* Full height */
-					overflow: auto; /* Enable scroll if needed */
-					background-color: rgb(0,0,0); /* Fallback color */
-					background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-					backdrop-filter: blur(3px);
-				}
-				.modal-content {
-					position: relative;
-					color: #b1d5e6;;
-					background-color: #3fa6d6;
-					margin: 20% auto; /* 15% from the top and centered */
-					padding: 20px;
-					border: 1px solid #888;
-					width: 500px; /* Could be more or less, depending on screen size */
-					display: flex;
-					flex-direction: column;
-					align-items: start;
-					justify-content: baseline;
-					border-radius: 10px;
-					animation: 0.5s fadeIn ease-in;
-					
-					i {
-						position: absolute;
-						top: 10px;
-						right: 10px;
-						font-size: 1.5rem;
-					}
 				}
 			}
 		}
