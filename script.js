@@ -27,6 +27,10 @@ const todoBody = document.querySelector('.todo-body');
 const todoProject = document.querySelector('.project');
 const todoNote = document.querySelector('.note');
 
+const todos = [];
+const projects = [];
+const notes = [];
+
 todoSide.forEach((link) => {
 	link.addEventListener("click", (e) => {
 		const target = e.target;
@@ -59,5 +63,57 @@ todoSide.forEach((link) => {
 			todoNote.classList.remove("hidden");
 		}
 	})
+});
+
+class Todo {
+	constructor(id, title, details, date, todo) {
+		this.id = id;
+		
+	}
+}
+
+
+function addTodo(){
+	let title = document.getElementById('title');
+	let details = document.getElementById('details');
+	let date = document.getElementById('date');
+	const todo = {
+		'title': title.value,
+		'details': details.value,
+		'date': date.value,
+	};
+
+	todos.push(todo);
+
+	title.value = '';
+	details.value = '';
+	date.value = '';
+	 
+	return todo;
+}
+
+const createTodoBtn = document.getElementById('create-todo');
+createTodoBtn.addEventListener("click", () => {
+	addTodo();
+	console.log(todos);
+});
+
+function addProject() {
+	let projectTitle = document.getElementById('project');
+	
+	const project = {
+		'project': projectTitle.value,
+	}
+	projects.push(project);
+
+	projectTitle.value = '';
+	
+	return project;
+}
+const createProjectBtn = document.getElementById('create-project');
+createProjectBtn.addEventListener("click", () => {
+	addProject();
+	console.log(projects)
 })
+
 

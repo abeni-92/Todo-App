@@ -1,27 +1,21 @@
 import './style.css';
 
-import { createSideBarLink, newElement } from './helper';
-import { addTodo } from './script';
-// import '@fortawesome/fontawesome-svg-core';
-// import '@fortawesome/free-brands-svg-icons';
-// import '@fortawesome/free-solid-svg-icons';
-// import '@fortawesome/free-regular-svg-icons';
-// const main = document.getElementById("main");
+import { createSideBarLink, newElement, newElementWithClass } from './helper';
+import { addTodo, showDetails } from './script';
 
 function createNav() {
-	const nav = newElement('div', '');
+	const nav = newElementWithClass('div', ['nav']);
 	const h1 = newElement('h1', 'TODO');
 	const login = newElement('a', 'Login');
-	
-	nav.classList.add("nav");
+	login.classList.add('login-btn');
+
 	nav.append(h1, login);
 
 	return nav;
 }
 
 function createSideBar() {
-	const sideBar = newElement('div', '');
-	sideBar.classList.add('sidebar');
+	const sideBar = newElementWithClass('div', ['sidebar']);
 
 	const ul = newElement('ul', '');
 
@@ -30,6 +24,7 @@ function createSideBar() {
 	const week = createSideBarLink('Week', '#');
 
 	const projects = newElement('li', '');
+	projects.setAttribute("id", "projects")
 	const span = newElement('span', 'Projects')
 	projects.append(span);
 	
@@ -43,13 +38,13 @@ function createSideBar() {
 	// add button to add todolist
 	const add = newElement('li', '');
 	const a = newElement('a','');
-	const i = newElement('i', '');
-	i.classList.add("fa-circle-plus");
-	i.classList.add("fa-solid");
+	const i = newElementWithClass('i', ['fa-circle-plus', 'fa-solid']);
+	
+	i.setAttribute("id", "add-icon");
 	a.append(i);
 	add.append(a);
-	add.setAttribute("id", "add");
 
+	// opens modal to add Todo
 	add.addEventListener("click", addTodo);
 
 	ul.append(home, today, week, projects, ul2, notes, add);
@@ -59,8 +54,7 @@ function createSideBar() {
 } 
 
 function createContent(){
-	const content = document.createElement('div');
-	content.classList.add('content');
+	const content = newElementWithClass('div', ['content']);
 	
 	const row1 = createRow('Play guitar', '16th june');
 	const row2 = createRow('Study', 'june 17th');
@@ -69,23 +63,20 @@ function createContent(){
 	const row5 = createRow('buy grocery', '20th june');
 	const row6 = createRow('listen podcast', 'june 22nd');
 
-	content.append(row1);
-	content.append(row2);
-	content.append(row3);
-	content.append(row4);
-	content.append(row5);
-	content.append(row6);
+	content.append(row1, row2, row3, row4, row5, row6);
+	// content.append(row2);
+	// content.append(row3);
+	// content.append(row4);
+	// content.append(row5);
+	// content.append(row6);
 
 	return content;
 }
 
 function createRow(tk, dt) {
-	const row = document.createElement('div');
-	row.classList.add('row')
-	const left = document.createElement('div');
-	left.classList.add('left');
-	const right = document.createElement('div');
-	right.classList.add('right');
+	const row = newElementWithClass('div', ['row']);
+	const left =newElementWithClass('div', ['left']);
+	const right = newElementWithClass('div', ['right'])
 
 	const checkbox = document.createElement('input');
 	checkbox.setAttribute("type", "checkbox");
@@ -94,29 +85,28 @@ function createRow(tk, dt) {
 	left.append(checkbox, task);
 
 	const details = newElement('button', 'details');
+	details.addEventListener("click",  showDetails);
+	
 	const date = newElement('p', dt);
 
-	const editClass = ['fa-pen-to-square', 'fa-solid'];
-	const edit = document.createElement('i');
-	edit.classList.add(...editClass);
-
-	const deleteClass = ['fa-solid', 'fa-trash-can'];
-	const del = document.createElement('i');
-	del.classList.add(...deleteClass);
+	const edit = newElementWithClass('i',  ['fa-pen-to-square', 'fa-solid']);
+	const del = newElementWithClass('i',  ['fa-solid', 'fa-trash-can'])
 
 	right.append(details, date, edit, del);
-	
 	row.append(left, right);
 
 	return row;
 }
 
-function displayModal() {
-	// const content = document.querySelector('content');
-	const modal = document.createElement('div');
-	modal.classList.add('modal');
-	const modalContent = document.createElement('div');
-	modalContent.classList.add('modal-content');
+function detailsModal() {
+	const modal =newElementWithClass('div', ['modal']);
+	const modalContent = newElementWithClass('div', ['modal-content']);
+
+	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
+	close.addEventListener("click", () =>{
+		 modal.classList.remove("modal");
+		 modal.remove();
+	});
 
 	const title = newElement('h2', 'Some title');
 	const project = newElement('h4', 'Project: ')
@@ -134,15 +124,66 @@ function displayModal() {
 	dueDate.append(span3);
 	details.append(span4);
 	
-	modalContent.append(title, project, priority, dueDate, details);
+	modalContent.append(close, title, project, priority, dueDate, details);
 	modal.append(modalContent);
 
 	return  modal;
 }
 
+function addTodoModal(){
+
+	const todoModal = newElementWithClass('div', ['todo-modal']);
+	const todoModalContent = newElementWithClass('div', ['todo-modal-content']);
+	const todoHeader = newElementWithClass('div', ['todo-header']);
+
+	const h2 = newElement('h2', 'Create New Todo');
+	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
+
+	const todoContent = newElementWithClass('div', 'todo-content');
+
+	const todoSide = newElementWithClass('ul', ['todo-side']);
+	
+
+	// <div class="todo-modal">
+	// 				<div class="todo-modal-content">
+	// 					<div class="todo-header">
+	// 						<h2>Create new todo</h2>
+	// 						<a href="#"><i class="fa-solid fa-x"></i></a>
+	// 					</div>
+	// 					<div class="todo-content">
+	// 						<ul class="todo-side">
+	// 							<li><a href="#" class="link active" data-name="Todo">Todo</a></li>
+	// 							<li><a href="#" class="link" data-name="Project">Project</a></li>
+	// 							<li><a href="#" class="link" data-name="Note">Note</a></li>
+	// 						</ul>
+	// 						<div class="border"></div>
+	// 						<div class="todo-body">
+	// 							<input type="text" name="title" id="title" placeholder="Title: Study" required>
+	// 							<textarea name="details" id="details" class="input" cols="40" rows="10" placeholder="Details: eg AI,Cyber.. " required></textarea>
+	// 							<input type="date" name="date" class="input" minDate="0" id="date">		
+	// 							<select name="pro" id="pro">
+	// 								<option value="" disabled selected>select project</option>
+	// 								<option value="1">gym</option>
+	// 								<option value="2">study</option>
+	// 							</select>					
+	// 							<button class="add-btn-todo" id="create-todo">Create <span id="task-btn">Todo</span></button>
+	// 						</div>
+	// 						<div class="todo-body project hidden">
+	// 							<input type="text" name="project" id="project" placeholder="Title: Building" required>	
+	// 							<button class="add-btn-todo" id="create-project">Create <span id="task-btn">Project</span></button>
+	// 						</div>
+	// 						<div class="todo-body note hidden">
+	// 							<input type="text" name="note" id="note" placeholder="Title:" required>	
+	// 							<textarea name="details" id="note-details" cols="40" rows="10" placeholder="Details:" required></textarea>
+	// 							<button class="add-btn-todo" id="create-note">Create <span id="task-btn">Note</span></button>
+	// 						</div>
+	// 					</div>
+	// 				</div>
+	// 			</div>
+}
+
 function createBody() {
-	const body = newElement('div', '');
-	body.classList.add('body');
+	const body = newElementWithClass('div', ['body']);
 	
 	body.append(createSideBar(), createContent());
 
@@ -150,4 +191,53 @@ function createBody() {
 }
 
 
-export {createNav, createBody};
+function createTodo() {
+	const todo = newElement('div', '');
+	todo.classList.add('modal');
+
+	const header = newElement('div', '');
+	const htext = newElement('p', 'Create new Todo..');
+	const deleteClass  = ['fa-regular', 'fa-circle-xmark'];
+	const del = document.createElement('i');
+	del.classList.add(...deleteClass);
+	del.style.fontSize = '1.5rem';
+
+	header.classList.add('todo-header');
+	header.append(htext, del);
+	
+	const sideTodo = newElement('div', '');
+	sideTodo.classList.add('sideTodo');
+	const rightTodo = newElement('div', '');
+	rightTodo.classList.add('rightTodo');
+	
+	const title = newElement('input', '');
+	title.setAttribute("placeholder", "title")
+	const details = newElement('textarea', '');
+	details.setAttribute("placeholder", "details:")
+	const dt = newElement('input', '');
+	dt.setAttribute('type', 'date');
+	// const priority
+	
+	const TODO = createSideBarLink('To Do', '#');
+	const project = createSideBarLink('Project', '#');
+	const note = createSideBarLink('Note', '#');
+	
+	sideTodo.append(TODO, project, note);
+	rightTodo.append(title, details, dt);
+	
+	const todoContent = newElement('div', '')
+	todoContent.classList.add('todo-content');
+	todoContent.append(sideTodo, rightTodo);
+
+	const allContent = newElement('div', '');
+	allContent.append(header, todoContent);
+	allContent.classList.add('modal-content');
+
+	todo.append(allContent);
+	
+	return todo;
+}
+
+
+
+export {createNav, createBody, createTodo, detailsModal};

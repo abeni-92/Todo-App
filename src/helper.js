@@ -19,4 +19,11 @@ function newElement(tag, value) {
 	return elt;
 }
 
-export {createSideBarLink, newElement}
+function newElementWithClass(tag, classname){
+	const elt = document.createElement(tag);
+	elt.classList.add(...classname);
+
+	return elt
+}
+
+export {createSideBarLink, newElement, newElementWithClass}

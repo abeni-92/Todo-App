@@ -157,6 +157,10 @@ button {
   padding: 10px;
   width: 100%;
 }
+.todo-body select {
+  padding: 10px;
+  width: 50%;
+}
 
 .hidden {
   display: none;

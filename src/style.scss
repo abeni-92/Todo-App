@@ -2,16 +2,6 @@ $primary-color: #392c4e;
 $secondary-color: #89cff0;
 $third-color: #00a27a;
 $fourth-color: #f0595b;
-// importing core styling file
-// importing core styling file
-// @import "../scss/fontawesome.scss";
-
-// our project needs Classic Solid, Brands, and Sharp Solid
-// @import "../scss/solid.scss";
-// @import "../scss/brands.scss";
-// @import "../scss/sharp-solid.scss";
-
-// $fa-font-path: "../dist/webfonts";
 
 *,*::after,*::before {
 	box-sizing: border-box;
@@ -24,245 +14,333 @@ body {
 	color: $primary-color;
 	background-color:#2b6d8b;
 }
+
 h2 {
 	font-size: 2rem;
 	margin: 0;
 }
-li {
-	list-style: none;
-}
-a {
-	text-decoration: none;
-}
 
-.link {
-	font-size: 1.2rem;
-	color: #0d2574;
-}
-.link:hover{
-	color: #fff;
+h1 {
+	font-size: 4rem;
+	margin: 0;
+	// margin-trim: none;
 }
 
 button {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 	padding: 4px 6px;
 	border-radius: 4px;
 	border: 1px solid #96494b;
 	background-color: #c95759;
 	color: #89cff0;
 }
-// h1 {
-// 	font-size: 54px;
-	
-// }
+
+button:hover {
+	background-color: transparent;
+	color: #f2f1f0;
+}
+
+.login-btn {
+	padding: 6px 14px;
+	color: #89cff0;
+	background-color:#2b6d8b;
+	border: 1px solid #2b6d8b;
+	border-radius: 4px;
+	box-shadow: 1px solid #2e7292;
+	cursor: pointer;
+}
+
+.login-btn:hover {
+	color:  #c95759;
+	// background-color: #268ebe;
+	text-decoration: none;
+}
 
 .main {
 	padding: 80px 100px;
 	animation: 1s fadeIn ease-in;
-	.nav {
-		background-color: #c95759;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 20px;
-		h1 {
-			font-size: 4rem;
-			// margin-trim: none;
-		}
-		a {
-			color: $primary-color;
-			font-size: 2rem;
-			text-decoration: none;
-			background-color: #3fa6d6;
-			padding: 8px 16px;
-			border-radius: 4px;
-		}
-		a:hover {
-			background-color: #6bb8db;
-			color: #f2f1f0;
-		}
-	}
+}
+
+.nav {
+	background-color: #c95759;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+}
 	
-	.body {
-		display: flex;
-		align-items: flex-start;
-		background-color: rgb(99, 149, 192);
-		color: $primary-color;
-		// position: relative;
-		.sidebar {
-			padding: 20px;
-			width: 15vw;
-			border-right: 2px solid rgb(40, 117, 184);
-			ul {
-				list-style: none;
-				margin: 0;
-				padding: 0px 20px;
-				color: #082921;
+.body {
+	position: relative;
+	display: flex;
+	align-items: flex-start;
+	background-color: rgb(99, 149, 192);
+	position: relative;
+}
 
-				span {
-					font-size: 2rem;
-				}
+.sidebar {
+	// position: relative;
+	padding: 20px;
+	width: 15vw;
+}
 
-				li {
-					padding: 0px;
-				}
+#add-icon {
+	position: absolute;
+	left: 40px;
+	bottom: 20px;
+	font-size: 3rem;
+}
 
-				a {
-					text-decoration: none;
-					font-size: 1.6rem;
-				}
-				a:visited {
-					color: #1c5243;
-				}
-				a:hover {
-					color: $primary-color;
-					text-decoration: underline;
-				}
-				i {
-					font-size: 3rem;
-					margin: 150px auto 0 auto;
-					// position: absolute;
-					// bottom: 20px;
-					// left: 50px;
-					// margin-top: 50px;
-				}
-			}
-		}
-
-		.content {
-			padding: 20px 40px;
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			font-size: 1.2rem;
-			color: #89cff0;
-			// border-left: 1px solid rgb(40, 117, 184);
-			.row {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				background-color: rgb(60, 110, 153);
-				padding: 10px;
-				margin: 10px 0;
-				.left {
-					display: flex;
-					align-items: baseline;
-					justify-content: start;
-					gap: 20px;
-					input[type=checkbox] {
-						transform: scale(1.5);
-					}
-				}
-				.right {
-					display: flex;
-					align-items: baseline;
-					justify-content: start;
-					gap: 20px;
-				}
-				button:hover,
-				i:hover {
-					background-color: transparent;
-					color: #f2f1f0;
-				}
-
-				// .modal {
-				// 	display: hidden; /* Hidden by default */
-				// 	position: fixed; /* Stay in place */
-				// 	z-index: 1; /* Sit on top */
-				// 	left: 0;
-				// 	top: 0;
-				// 	width: 100%; /* Full width */
-				// 	height: 100%; /* Full height */
-				// 	overflow: auto; /* Enable scroll if needed */
-				// 	background-color: rgb(0,0,0); /* Fallback color */
-				// 	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-				// 	backdrop-filter: blur(3px);
-				// }
-				// .modal-content {
-				// 	position: relative;
-				// 	color: #b1d5e6;;
-				// 	background-color: #3fa6d6;
-				// 	margin: 20% auto; /* 15% from the top and centered */
-				// 	padding: 20px;
-				// 	border: 1px solid #888;
-				// 	width: 500px; /* Could be more or less, depending on screen size */
-				// 	display: flex;
-				// 	flex-direction: column;
-				// 	align-items: start;
-				// 	justify-content: baseline;
-				// 	border-radius: 10px;
-				// 	animation: 0.5s fadeIn ease-in;
-					
-					i {
-						position: absolute;
-						top: 10px;
-						right: 10px;
-						font-size: 1.5rem;
-					}
-				// }
-			}
-		}
-	}
-
+.content {
+	padding: 20px 40px;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	font-size: 1.2rem;
+	color: #89cff0;
+	border-left: 6px solid #2b6d8b;
 }
 
 .modal {
-		display: block; /* Hidden by default */
-		position: fixed; /* Stay in place */
-		z-index: 1; /* Sit on top */
-		left: 0;
-		top: 0;
-		width: 100%; /* Full width */
-		height: 100%; /* Full height */
-		overflow: auto; /* Enable scroll if needed */
-		background-color: rgb(0,0,0); /* Fallback color */
-		background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-		backdrop-filter: blur(3px);
-		animation: 0.5s fadeIn;
-	}
-	
+	display: block; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	backdrop-filter: blur(3px);
+}
+
 .modal-content {
 	position: relative;
 	color: #b1d5e6;;
-	background-color: #27789e;
+	background-color: #2e7292;
 	margin: 20% auto; /* 15% from the top and centered */
-	// padding: 20px;
-	// border: 1px solid #888;
-	width: 600px; /* Could be more or less, depending on screen size */
+	padding: 20px;
+	border: 1px solid #888;
+	width: 500px; /* Could be more or less, depending on screen size */
 	display: flex;
 	flex-direction: column;
 	align-items: start;
+	justify-content: baseline;
+	border-radius: 10px;
+	animation: 0.3s fadeIn ease-in;
+	i {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		font-size: 1.5rem;
+	}
+	i:hover {
+		background-color: transparent;
+		color: #f0595b;
+	}
+}
+
+.show-modal{
+	display: block;
+}
+					
+.row {
+	display: flex;
+	align-items: center;
 	justify-content: space-between;
+	background-color: rgb(60, 110, 153);
+	padding: 10px;
+	margin: 10px 0;
+}
+
+.left {
+	display: flex;
+	align-items: baseline;
+	justify-content: start;
+	gap: 20px;
+	input[type=checkbox] {
+		transform: scale(1.2);
+	}
+}
+
+.right {
+	display: flex;
+	align-items: baseline;
+	justify-content: start;
+	gap: 20px;
+}
+			
+.header {
+	color: $primary-color;
+	font-size: 2rem;
+	text-decoration: none;
+	background-color: #3fa6d6;
+	padding: 8px 16px;
+	border-radius: 4px;
+}
+
+.header:hover {
+	background-color: #268ebe;
+	color: #c95759;
+}
+
+ul {
+	// position: relative;
+	list-style: none;
+	margin: 0;
+	padding: 0px 10px;
+	// color: #082921;
+}
+
+#projects {
+	font-size: 2rem;
+}
+
+a {
+	color: #914614;
+	text-decoration: none;
+	font-size: 1.6rem;
+}
+
+a:visited {
+	color: #502f04;
+}
+
+a:hover,
+.active {
+	color:#975c0d;
+	text-decoration: underline;
+}
+
+#add{
+	font-size: 3rem;
+	position: absolute;
+	bottom: 20px;
+	left: 50px;
+}
+
+
+
+.todo-modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	backdrop-filter: blur(3px);
+}
+.todo-modal-content {
+	position: relative;
+	color: #98c9e0;
+	background-color: #337797;
+	margin: 10% auto; /* 15% from the top and centered */
+	// padding: 20px;
+	border: 1px solid #888;
+	width: 60%; /* Could be more or less, depending on screen size */
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	justify-content: baseline;
 	// border-radius: 10px;
 	animation: 0.5s fadeIn ease-in;
 }
+
 .todo-header {
-	padding: 20px;
+	background-color:#12886a;
 	width: 100%;
 	display: flex;
 	align-items: center;
-	border: 1px solid #00a27a;
-	// border-radius: ;
 	justify-content: space-between;
-	background-color: #00a27a;
+	padding: 20px;
+
+	i {
+		font-size: 2rem;
+	}
+	i:hover {
+		color: red;
+	}
 }
 .todo-content {
-	display: flex;
-	height: 400px;
-	// padding: 20px;
-}
-.rightTodo {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
 	width: 100%;
 	padding: 20px;
+	display: flex;
+	align-items: start;
+	justify-content: space-around;
+	color: #98c9e0;
 }
-.sideTodo {
-	margin-right: 10px;
-	border-right: 1px solid#0d4caa;
+
+.todo-side {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	// border-right: 3px solid #00a27a;
+	// height: 100%;
+}
+
+// .border {
+// 	border-left: 5px solid #047263;
+// 	height: 100%;
+// 	position: fixed;
+// 	left: 200px;
+// 	top: 0;
+// }
+
+.todo-body {
+	animation: 0.3s fadeIn ease-in;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: baseline;
+	justify-content: baseline;
+	gap: 15px;
 	padding: 10px;
+	margin-left: 10px;
+	width: 100%;
+	height: 400px;
+	border-left: 6px solid #00a27a;
+	input {
+		width: 100%;
+		padding: 10px;
+		outline: none;
+	}
+	textarea {
+		padding: 10px;
+		width: 100%;
+	}
+	select {
+		padding: 10px;
+		width: 50%;
+	}
 }
+
+.hidden {
+	display: none;
+}
+
+.add-btn-todo {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	background-color:#12886a;
+	color: #f1f2f3;
+	border: 1px solid #00a27a;
+	width: 30%;
+}
+
+.add-btn-todo:hover{
+	background-color: transparent;
+}
+
+.todo-show-modal {
+	display: block;
+}
+
+		
 
 
 @keyframes fadeIn {

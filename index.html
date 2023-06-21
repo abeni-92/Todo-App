@@ -32,17 +32,22 @@
 							<div class="todo-body">
 								<input type="text" name="title" id="title" placeholder="Title: Study" required>
 								<textarea name="details" id="details" class="input" cols="40" rows="10" placeholder="Details: eg AI,Cyber.. " required></textarea>
-								<input type="date" name="date" class="input">							
-								<button class="add-btn-todo">Create <span id="task-btn">Todo</span></button>
+								<input type="date" name="date" class="input" minDate="0" id="date">		
+								<select name="pro" id="pro">
+									<option value="" disabled selected>select project</option>
+									<option value="1">gym</option>
+									<option value="2">study</option>
+								</select>					
+								<button class="add-btn-todo" id="create-todo">Create <span id="task-btn">Todo</span></button>
 							</div>
 							<div class="todo-body project hidden">
 								<input type="text" name="project" id="project" placeholder="Title: Building" required>	
-								<button class="add-btn-todo">Create <span id="task-btn">Project</span></button>
+								<button class="add-btn-todo" id="create-project">Create <span id="task-btn">Project</span></button>
 							</div>
 							<div class="todo-body note hidden">
 								<input type="text" name="note" id="note" placeholder="Title:" required>	
-								<textarea name="details" id="details" cols="40" rows="10" placeholder="Details:" required></textarea>
-								<button class="add-btn-todo">Create <span id="task-btn">Note</span></button>
+								<textarea name="details" id="note-details" cols="40" rows="10" placeholder="Details:" required></textarea>
+								<button class="add-btn-todo" id="create-note">Create <span id="task-btn">Note</span></button>
 							</div>
 						</div>
 					</div>
