@@ -1,6 +1,6 @@
 import './style.css';
 
-import { createSideBarLink, newElement, newElementWithClass } from './helper';
+import { createSideBarLink, newElement, newElementWithClass, setAttributes } from './helper';
 import { addTodo, showDetails } from './script';
 
 function createNav() {
@@ -45,7 +45,10 @@ function createSideBar() {
 	add.append(a);
 
 	// opens modal to add Todo
-	add.addEventListener("click", addTodo);
+	add.addEventListener("click", () => {
+		addTodo();
+		console.log('clicked');
+	});
 
 	ul.append(home, today, week, projects, ul2, notes, add);
 	sideBar.append(ul);
@@ -64,11 +67,6 @@ function createContent(){
 	const row6 = createRow('listen podcast', 'june 22nd');
 
 	content.append(row1, row2, row3, row4, row5, row6);
-	// content.append(row2);
-	// content.append(row3);
-	// content.append(row4);
-	// content.append(row5);
-	// content.append(row6);
 
 	return content;
 }
@@ -99,7 +97,7 @@ function createRow(tk, dt) {
 }
 
 function detailsModal() {
-	const modal =newElementWithClass('div', ['modal']);
+	const modal = newElementWithClass('div', ['modal']);
 	const modalContent = newElementWithClass('div', ['modal-content']);
 
 	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
@@ -134,52 +132,49 @@ function addTodoModal(){
 
 	const todoModal = newElementWithClass('div', ['todo-modal']);
 	const todoModalContent = newElementWithClass('div', ['todo-modal-content']);
-	const todoHeader = newElementWithClass('div', ['todo-header']);
 
+	const todoHeader = newElementWithClass('div', ['todo-header']);
 	const h2 = newElement('h2', 'Create New Todo');
 	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
+	close.addEventListener("click", () => todoModal.style.display = 'none');
+	todoHeader.append(h2, close);
 
-	const todoContent = newElementWithClass('div', 'todo-content');
+	const todoContent = newElementWithClass('div', ['todo-content']);
 
 	const todoSide = newElementWithClass('ul', ['todo-side']);
-	
+	const todoLink = createSideBarLink('Todo', '#');
+	const projectLink = createSideBarLink('Project', '#');
+	const noteLink = createSideBarLink('Note', '#');
+	todoSide.append(todoLink, projectLink, noteLink);
 
-	// <div class="todo-modal">
-	// 				<div class="todo-modal-content">
-	// 					<div class="todo-header">
-	// 						<h2>Create new todo</h2>
-	// 						<a href="#"><i class="fa-solid fa-x"></i></a>
-	// 					</div>
-	// 					<div class="todo-content">
-	// 						<ul class="todo-side">
-	// 							<li><a href="#" class="link active" data-name="Todo">Todo</a></li>
-	// 							<li><a href="#" class="link" data-name="Project">Project</a></li>
-	// 							<li><a href="#" class="link" data-name="Note">Note</a></li>
-	// 						</ul>
-	// 						<div class="border"></div>
-	// 						<div class="todo-body">
-	// 							<input type="text" name="title" id="title" placeholder="Title: Study" required>
-	// 							<textarea name="details" id="details" class="input" cols="40" rows="10" placeholder="Details: eg AI,Cyber.. " required></textarea>
-	// 							<input type="date" name="date" class="input" minDate="0" id="date">		
-	// 							<select name="pro" id="pro">
-	// 								<option value="" disabled selected>select project</option>
-	// 								<option value="1">gym</option>
-	// 								<option value="2">study</option>
-	// 							</select>					
-	// 							<button class="add-btn-todo" id="create-todo">Create <span id="task-btn">Todo</span></button>
-	// 						</div>
-	// 						<div class="todo-body project hidden">
-	// 							<input type="text" name="project" id="project" placeholder="Title: Building" required>	
-	// 							<button class="add-btn-todo" id="create-project">Create <span id="task-btn">Project</span></button>
-	// 						</div>
-	// 						<div class="todo-body note hidden">
-	// 							<input type="text" name="note" id="note" placeholder="Title:" required>	
-	// 							<textarea name="details" id="note-details" cols="40" rows="10" placeholder="Details:" required></textarea>
-	// 							<button class="add-btn-todo" id="create-note">Create <span id="task-btn">Note</span></button>
-	// 						</div>
-	// 					</div>
-	// 				</div>
-	// 			</div>
+	const todoBody = newElementWithClass('div', ['todo-body']);
+	const title = newElement('input', '');
+	setAttributes(title, {'placeholder': 'Title: push up', 'required':''});
+
+	const details = newElement('textarea', '');
+	setAttributes(details, {'placeholder': 'details of the task...', 'rows': '10', 'cols':'30'})
+	
+	const date = newElement('input', '');
+	date.setAttribute("type", "date");
+
+	const select = newElement('select', '');
+	const option1 = newElement('option', 'Select Project');
+	const option2 = newElement('option', 'Gym');
+	const option3 = newElement('option', 'home');
+	select.append(option1, option2, option3);
+
+	const btn = newElementWithClass('button', ['add-btn-todo']);
+	const span = newElement('span', 'create Todo');
+	span.setAttribute("id", "task-btn");
+	btn.append(span);
+	todoBody.append(title, details, date, select, btn);
+
+	todoContent.append(todoSide, todoBody);
+	todoModalContent.append(todoHeader, todoContent)
+	todoModal.append(todoModalContent);
+
+	return todoModal;
+
 }
 
 function createBody() {
@@ -189,6 +184,14 @@ function createBody() {
 
 	return body;
 }
+
+
+
+
+export {createNav, createBody, detailsModal, addTodoModal};
+
+
+
 
 
 function createTodo() {
@@ -239,5 +242,3 @@ function createTodo() {
 }
 
 
-
-export {createNav, createBody, createTodo, detailsModal};

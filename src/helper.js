@@ -26,4 +26,10 @@ function newElementWithClass(tag, classname){
 	return elt
 }
 
-export {createSideBarLink, newElement, newElementWithClass}
+function setAttributes(el, attrs) {
+	for(let key in attrs) {
+	  el.setAttribute(key, attrs[key]);
+	}
+  }
+
+export {createSideBarLink, newElement, newElementWithClass, setAttributes}

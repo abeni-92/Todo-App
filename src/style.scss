@@ -33,6 +33,7 @@ button {
 	border: 1px solid #96494b;
 	background-color: #c95759;
 	color: #89cff0;
+	cursor: pointer;
 }
 
 button:hover {
@@ -134,14 +135,16 @@ button:hover {
 		right: 10px;
 		font-size: 1.5rem;
 	}
-	i:hover {
-		background-color: transparent;
-		color: #f0595b;
-	}
 }
 
 .show-modal{
 	display: block;
+}
+
+i:hover {
+	background-color: transparent;
+	color: #f0595b;
+	cursor: pointer;
 }
 					
 .row {
@@ -151,6 +154,7 @@ button:hover {
 	background-color: rgb(60, 110, 153);
 	padding: 10px;
 	margin: 10px 0;
+
 }
 
 .left {
@@ -222,7 +226,7 @@ a:hover,
 
 
 .todo-modal {
-	display: none; /* Hidden by default */
+	display: block; /* Hidden by default */
 	position: fixed; /* Stay in place */
 	z-index: 1; /* Sit on top */
 	left: 0;
@@ -238,7 +242,7 @@ a:hover,
 	position: relative;
 	color: #98c9e0;
 	background-color: #337797;
-	margin: 10% auto; /* 15% from the top and centered */
+	margin: 6% auto; /* 15% from the top and centered */
 	// padding: 20px;
 	border: 1px solid #888;
 	width: 60%; /* Could be more or less, depending on screen size */
@@ -247,7 +251,7 @@ a:hover,
 	align-items: start;
 	justify-content: baseline;
 	// border-radius: 10px;
-	animation: 0.5s fadeIn ease-in;
+	animation: 0.3s fadeIn ease-in;
 }
 
 .todo-header {
@@ -256,7 +260,7 @@ a:hover,
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 20px;
+	padding: 30px;
 
 	i {
 		font-size: 2rem;
@@ -270,7 +274,7 @@ a:hover,
 	padding: 20px;
 	display: flex;
 	align-items: start;
-	justify-content: space-around;
+	justify-content: space-between;
 	color: #98c9e0;
 }
 
@@ -281,14 +285,6 @@ a:hover,
 	// border-right: 3px solid #00a27a;
 	// height: 100%;
 }
-
-// .border {
-// 	border-left: 5px solid #047263;
-// 	height: 100%;
-// 	position: fixed;
-// 	left: 200px;
-// 	top: 0;
-// }
 
 .todo-body {
 	animation: 0.3s fadeIn ease-in;
@@ -330,6 +326,7 @@ a:hover,
 	color: #f1f2f3;
 	border: 1px solid #00a27a;
 	width: 30%;
+	cursor: pointer;
 }
 
 .add-btn-todo:hover{
