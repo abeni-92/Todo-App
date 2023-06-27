@@ -1,16 +1,16 @@
 import './style.css';
 
-import { addTodoModal, detailsModal } from './home';
+import { createTodoModal, createDetailsModal } from './home';
 
 const main = document.getElementById('main');
 
-function addTodo() {
-	main.append(addTodoModal());
+// function addTodo() {
+// 	main.append(createTodoModal());
 	
-}
+// }
 
-function showDetails() {
-	main.append(detailsModal())
-}
+// function showDetails() {
+// 	main.append(createDetailsModal())
+// }
 
-export {addTodo, showDetails};
+// export {addTodo, showDetails};

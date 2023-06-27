@@ -1,7 +1,9 @@
 import './style.css';
 
 import { createSideBarLink, newElement, newElementWithClass, setAttributes } from './helper';
-import { addTodo, showDetails } from './script';
+// import { addTodo, showDetails } from './script';
+
+const main = document.getElementById('main');
 
 function createNav() {
 	const nav = newElementWithClass('div', ['nav']);
@@ -46,8 +48,7 @@ function createSideBar() {
 
 	// opens modal to add Todo
 	add.addEventListener("click", () => {
-		addTodo();
-		console.log('clicked');
+		main.append(createTodoModal());
 	});
 
 	ul.append(home, today, week, projects, ul2, notes, add);
@@ -59,19 +60,15 @@ function createSideBar() {
 function createContent(){
 	const content = newElementWithClass('div', ['content']);
 	
-	const row1 = createRow('Play guitar', '16th june');
-	const row2 = createRow('Study', 'june 17th');
-	const row3 = createRow('Play guitar', '16th june');
-	const row4 = createRow('Study', 'june 17th');
-	const row5 = createRow('buy grocery', '20th june');
-	const row6 = createRow('listen podcast', 'june 22nd');
-
-	content.append(row1, row2, row3, row4, row5, row6);
-
+	todos.forEach(todo => {
+		const row = createRow(todo.title, todo.date, todo);
+		content.append(row);
+	  });
+	
 	return content;
 }
 
-function createRow(tk, dt) {
+function createRow(tk, dt, todo) {
 	const row = newElementWithClass('div', ['row']);
 	const left =newElementWithClass('div', ['left']);
 	const right = newElementWithClass('div', ['right'])
@@ -83,20 +80,102 @@ function createRow(tk, dt) {
 	left.append(checkbox, task);
 
 	const details = newElement('button', 'details');
-	details.addEventListener("click",  showDetails);
+	details.addEventListener("click",  () => {
+		// const todo = todos.find(item => item.id === todoId);
+		main.append(createDetailsModal(todo));
+	});
 	
 	const date = newElement('p', dt);
 
 	const edit = newElementWithClass('i',  ['fa-pen-to-square', 'fa-solid']);
+	const todoId = edit.dataset.todoId = todo.id;
+	edit.addEventListener("click", () => {
+		handleEditTodo(todoId);
+	});
+
 	const del = newElementWithClass('i',  ['fa-solid', 'fa-trash-can'])
 
 	right.append(details, date, edit, del);
 	row.append(left, right);
 
 	return row;
+	  
 }
 
-function detailsModal() {
+function handleEditTodo(todoId) {
+	// const todoId = this.dataset.todoId;
+	const todo = todos.find(todo => todo.id === todoId);
+	
+	// Open the todo modal
+	const todoModal = createTodoModal(todo);
+	
+	// Pre-fill the form fields with existing todo data
+	const titleInput = todoModal.querySelector('input');
+	const detailsInput = todoModal.querySelector('textarea');
+	const dateInput = todoModal.querySelector('input[type="date"]');
+	const selectInput = todoModal.querySelector('select');
+	const updateBtn = todoModal.querySelector('button');
+	
+	titleInput.value = todo.title;
+	detailsInput.value = todo.details;
+	dateInput.value = todo.date;
+	selectInput.value = todo.project;
+	updateBtn.textContent = 'Update Todo';
+	
+	titleInput.addEventListener('input', function() {
+		todo.title = titleInput.value;
+	});
+	
+	detailsInput.addEventListener('input', function() {
+		todo.details = detailsInput.value;
+	});
+	
+	dateInput.addEventListener('change', function() {
+		todo.date = dateInput.value;
+	});
+	
+	selectInput.addEventListener('change', function() {
+		todo.project = selectInput.value;
+	});
+
+	main.append(todoModal);
+	
+	// Display the updated todo object
+	console.log('Updated Todo:', todo);
+
+}
+
+function updateTodo() {
+	const title = document.getElementById('title');
+	const details = document.getElementById('details');
+	const date = document.getElementById('date');
+	const select = document.getElementById('project');
+
+	if (title.value == ''){
+		title.style.border = '2px solid red';
+		title.setAttribute("placeholder", "Title is required"); 
+		return
+	}
+	if (details.value == '') {
+		details.style.border = '2px solid red';
+		details.setAttribute("placeholder", "details is required"); 
+		return
+	} 
+	if (date.value == '') {
+		date.style.border = '2px solid red';
+		date.setAttribute("placeholder", "details is required"); 
+		return
+	}
+	if (select.value == 'Select Project') {
+		select.style.border = '2px solid red';
+		select.setAttribute("placeholder", "select project"); 
+		return
+	}
+
+	updateLocalStorage();
+}
+
+function createDetailsModal(todo) {
 	const modal = newElementWithClass('div', ['modal']);
 	const modalContent = newElementWithClass('div', ['modal-content']);
 
@@ -106,29 +185,18 @@ function detailsModal() {
 		 modal.remove();
 	});
 
-	const title = newElement('h2', 'Some title');
-	const project = newElement('h4', 'Project: ')
-	const priority = newElement('h4', 'Priority: ');
-	const dueDate = newElement('h4', 'Due date: ');
-	const details = newElement('h4', 'Details: ');
+	const title = newElement('h2', todo.title);
+	const project = newElement('h4', `Project: ${todo.project}`)
+	const dueDate = newElement('h4', `Due date: ${todo.date}`);
+	const details = newElement('h4', `Details: ${todo.details}`);
 	
-	const span1 = newElement('span', 'Today');
-	const span2 = newElement('span', 'Medium');
-	const span3 = newElement('span', 'june 16th, 2023');
-	const span4 = newElement('span', 'some details');
-
-	project.append(span1);
-	priority.append(span2);
-	dueDate.append(span3);
-	details.append(span4);
-	
-	modalContent.append(close, title, project, priority, dueDate, details);
+	modalContent.append(close, title, project, dueDate, details);
 	modal.append(modalContent);
 
 	return  modal;
 }
 
-function addTodoModal(){
+function createTodoModal(todo = null){
 
 	const todoModal = newElementWithClass('div', ['todo-modal']);
 	const todoModalContent = newElementWithClass('div', ['todo-modal-content']);
@@ -136,7 +204,10 @@ function addTodoModal(){
 	const todoHeader = newElementWithClass('div', ['todo-header']);
 	const h2 = newElement('h2', 'Create New Todo');
 	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
-	close.addEventListener("click", () => todoModal.style.display = 'none');
+	close.addEventListener("click", () => {
+		todoModal.style.display = 'none';
+		// location.reload();
+	});
 	todoHeader.append(h2, close);
 
 	const todoContent = newElementWithClass('div', ['todo-content']);
@@ -148,97 +219,159 @@ function addTodoModal(){
 	todoSide.append(todoLink, projectLink, noteLink);
 
 	const todoBody = newElementWithClass('div', ['todo-body']);
+
 	const title = newElement('input', '');
-	setAttributes(title, {'placeholder': 'Title: push up', 'required':''});
+	setAttributes(title, {'placeholder': 'Title: push up', 'id':'title'});
 
 	const details = newElement('textarea', '');
-	setAttributes(details, {'placeholder': 'details of the task...', 'rows': '10', 'cols':'30'})
+	setAttributes(details, {'placeholder': 'details of the task...', 'rows': '10', 'cols':'30', 'id': 'details'})
 	
 	const date = newElement('input', '');
 	date.setAttribute("type", "date");
+	date.setAttribute("id", "date");
+	date.onchange = () => date.style.border = '2px solid green';
 
 	const select = newElement('select', '');
+	select.setAttribute("id", "project")
 	const option1 = newElement('option', 'Select Project');
+	option1.setAttribute("id", "option1");
 	const option2 = newElement('option', 'Gym');
 	const option3 = newElement('option', 'home');
 	select.append(option1, option2, option3);
+	select.onchange = () => select.style.border = '2px solid green';
 
 	const btn = newElementWithClass('button', ['add-btn-todo']);
-	const span = newElement('span', 'create Todo');
-	span.setAttribute("id", "task-btn");
-	btn.append(span);
+	btn.textContent = 'Create Todo';
+
+	validateInput(title, 'Title', 'Title: push up');
+	validateInput(details, 'Details', 'Details: do 15 reps');
+
+	btn.addEventListener("click", () => {
+		if (!todo){
+			addTodo();
+		} else {
+			updateTodo();
+			// todoModal.style.display = 'none';	
+			// location.reload();
+		}
+	});
+
 	todoBody.append(title, details, date, select, btn);
 
 	todoContent.append(todoSide, todoBody);
 	todoModalContent.append(todoHeader, todoContent)
 	todoModal.append(todoModalContent);
-
+	
 	return todoModal;
 
 }
 
+function addTodo() {
+	const title = document.getElementById('title');
+	const details = document.getElementById('details');
+	const date = document.getElementById('date');
+	const select = document.getElementById('project');
+
+	if (title.value == ''){
+		title.style.border = '2px solid red';
+		title.setAttribute("placeholder", "Title is required"); 
+		return
+	}
+	if (details.value == '') {
+		details.style.border = '2px solid red';
+		details.setAttribute("placeholder", "details is required"); 
+		return
+	} 
+	if (date.value == '') {
+		date.style.border = '2px solid red';
+		date.setAttribute("placeholder", "details is required"); 
+		return
+	}
+	if (select.value == 'Select Project') {
+		select.style.border = '2px solid red';
+		select.setAttribute("placeholder", "select project"); 
+		return
+	}
+	
+	const todo = {
+		'id': getUniqueId(),
+		'title': title.value,
+		'details': details.value,
+		'date': date.value,
+		'project': select.value
+	}
+
+	todos.push(todo);
+	addToLocalStorage();
+	clearTodo();
+	// alert("Successfully added Todo!");
+
+	return todo;
+
+}
+
+function validateInput(input, name, placeholder) {
+	input.addEventListener("keyup", () => {
+		if (input.value == ''){
+			input.style.border = '2px solid red';
+			input.setAttribute("placeholder", `${name} is required`);
+
+		} else {
+			input.style.border = '2px solid green';
+			input.setAttribute("placeholder", placeholder); 
+		} 
+	})
+}
+
+function clearTodo() {
+	document.getElementById('title').value = '';
+	document.getElementById('details').value = '';
+	document.getElementById('date').value = '';
+	document.getElementById('project').value = document.getElementById('option1').value;
+}
+
+function getUniqueId() {
+	let id = 0;
+	const todosData = localStorage.getItem('todos');
+	if (todosData) {
+	  const todos = JSON.parse(todosData);
+	  id = todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
+	}
+	return id;
+  }
+
+function addToLocalStorage() {
+	localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function updateLocalStorage() {
+	localStorage.setItem('todos', JSON.stringify(todos));
+}
+  
+
+function getTodosFromLocalStorage() {
+	const storedTodos = localStorage.getItem("todos");
+	if (storedTodos) {
+	  return JSON.parse(storedTodos);
+	} else {
+	  return [];
+	}
+  }
+  
+const todos = getTodosFromLocalStorage();
+  
 function createBody() {
 	const body = newElementWithClass('div', ['body']);
 	
 	body.append(createSideBar(), createContent());
-
+	
 	return body;
 }
-
-
-
-
-export {createNav, createBody, detailsModal, addTodoModal};
-
-
-
-
-
-function createTodo() {
-	const todo = newElement('div', '');
-	todo.classList.add('modal');
-
-	const header = newElement('div', '');
-	const htext = newElement('p', 'Create new Todo..');
-	const deleteClass  = ['fa-regular', 'fa-circle-xmark'];
-	const del = document.createElement('i');
-	del.classList.add(...deleteClass);
-	del.style.fontSize = '1.5rem';
-
-	header.classList.add('todo-header');
-	header.append(htext, del);
 	
-	const sideTodo = newElement('div', '');
-	sideTodo.classList.add('sideTodo');
-	const rightTodo = newElement('div', '');
-	rightTodo.classList.add('rightTodo');
 	
-	const title = newElement('input', '');
-	title.setAttribute("placeholder", "title")
-	const details = newElement('textarea', '');
-	details.setAttribute("placeholder", "details:")
-	const dt = newElement('input', '');
-	dt.setAttribute('type', 'date');
-	// const priority
+export {createNav, createBody, createDetailsModal, createTodoModal};
 	
-	const TODO = createSideBarLink('To Do', '#');
-	const project = createSideBarLink('Project', '#');
-	const note = createSideBarLink('Note', '#');
 	
-	sideTodo.append(TODO, project, note);
-	rightTodo.append(title, details, dt);
 	
-	const todoContent = newElement('div', '')
-	todoContent.classList.add('todo-content');
-	todoContent.append(sideTodo, rightTodo);
-
-	const allContent = newElement('div', '');
-	allContent.append(header, todoContent);
-	allContent.classList.add('modal-content');
-
-	todo.append(allContent);
 	
-	return todo;
-}
-
-
+	
