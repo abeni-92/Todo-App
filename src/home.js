@@ -22,8 +22,15 @@ function createSideBar() {
 	const ul = newElement('ul', '');
 
 	const home = createSideBarLink('Home', '#');
+	home.addEventListener('click', () => {
+		renderTodos(todos);
+	});
+
 	const today = createSideBarLink('Today', '#');
+	today.addEventListener('click', handleTodayFilter);
+
 	const week = createSideBarLink('Week', '#');
+	week.addEventListener('click', handleWeekFilter);
 
 	const projects = newElement('li', '');
 	projects.setAttribute("id", "projects")
@@ -35,7 +42,7 @@ function createSideBar() {
 	const study = createSideBarLink('Study', '#');
 	ul2.append(gym, study);
 
-	const notes = createSideBarLink('Notes', '#');
+	// const notes = createSideBarLink('Notes', '#');
 
 	// add button to add todolist
 	const add = newElement('li', '');
@@ -51,15 +58,70 @@ function createSideBar() {
 		main.append(createTodoModal());
 	});
 
-	ul.append(home, today, week, projects, ul2, notes, add);
+	ul.append(home, today, week, projects, ul2, add);
 	sideBar.append(ul);
 
 	return sideBar;
 } 
 
+function handleTodayFilter() {
+	const filteredTodos = todos.filter((todo) => isToday(new Date(todo.date)));
+	renderTodos(filteredTodos);
+}
+  
+function handleWeekFilter() {
+	const filteredTodos = todos.filter(todo => isThisWeek(new Date(todo.date)));
+	renderTodos(filteredTodos);
+}
+
+function isToday(date) {
+	const today = new Date();
+	let todoDate = new Date(date);
+	todoDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+	
+	return todoDate.getDate() === today.getDate() &&
+		   todoDate.getMonth() === today.getMonth() &&
+		   todoDate.getFullYear() === today.getFullYear();
+}
+
+function isThisWeek(date) {
+	const today = new Date();
+	const weekStart = today.getDate() - today.getDay();
+	const weekEnd = weekStart + 6;
+	
+	return date.getDate() >= weekStart &&
+	  date.getDate() <= weekEnd &&
+	  date.getMonth() === today.getMonth() &&
+	  date.getFullYear() === today.getFullYear();
+}
+  
+function renderTodos(todos) {
+	clearTodos();
+	const content = document.getElementById('content');
+
+	todos.forEach(todo => {
+	  const row = createRow(todo.title, todo.date, todo);
+	  content.append(row); 
+	});
+}
+
+function clearTodos() {
+	const content = document.getElementById('content');
+	content.innerHTML = '';
+}
+  
 function createContent(){
 	const content = newElementWithClass('div', ['content']);
-	
+	content.setAttribute('id', 'content');
+
+	if(todos.length == 0){
+		console.log('empty')
+		const h2 = newElement('h2', '');
+		h2.setAttribute('id', 'empty-content')
+		h2.textContent = 'Add new Todo!';
+		content.append(h2);
+	}
+
 	todos.forEach(todo => {
 		const row = createRow(todo.title, todo.date, todo);
 		content.append(row);
@@ -81,19 +143,21 @@ function createRow(tk, dt, todo) {
 
 	const details = newElement('button', 'details');
 	details.addEventListener("click",  () => {
-		// const todo = todos.find(item => item.id === todoId);
 		main.append(createDetailsModal(todo));
 	});
 	
 	const date = newElement('p', dt);
 
-	const edit = newElementWithClass('i',  ['fa-pen-to-square', 'fa-solid']);
-	const todoId = edit.dataset.todoId = todo.id;
+	const edit = newElementWithClass('i',  ['fa-pen-to-square', 'fa-solid', 'edit']);
+	const todoId = todo.id;
 	edit.addEventListener("click", () => {
 		handleEditTodo(todoId);
 	});
 
-	const del = newElementWithClass('i',  ['fa-solid', 'fa-trash-can'])
+	const del = newElementWithClass('i',  ['fa-solid', 'fa-trash-can']);
+	del.addEventListener("click", () => {
+		handleDeleteTodo(todoId);
+	})
 
 	right.append(details, date, edit, del);
 	row.append(left, right);
@@ -105,8 +169,7 @@ function createRow(tk, dt, todo) {
 function handleEditTodo(todoId) {
 	// const todoId = this.dataset.todoId;
 	const todo = todos.find(todo => todo.id === todoId);
-	
-	// Open the todo modal
+
 	const todoModal = createTodoModal(todo);
 	
 	// Pre-fill the form fields with existing todo data
@@ -145,6 +208,15 @@ function handleEditTodo(todoId) {
 
 }
 
+function handleDeleteTodo(todoId) {
+
+	const tds = todos.filter((todo) => todo.id != todoId);
+	addToLocalStorage(tds);
+	location.reload();
+
+	console.log(tds);
+}
+
 function updateTodo() {
 	const title = document.getElementById('title');
 	const details = document.getElementById('details');
@@ -172,12 +244,13 @@ function updateTodo() {
 		return
 	}
 
-	updateLocalStorage();
+	addToLocalStorage();
+	location.reload();
 }
 
 function createDetailsModal(todo) {
-	const modal = newElementWithClass('div', ['modal']);
-	const modalContent = newElementWithClass('div', ['modal-content']);
+	const modal = newElementWithClass('div', ['details-modal']);
+	const modalContent = newElementWithClass('div', ['details-modal-content']);
 
 	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
 	close.addEventListener("click", () =>{
@@ -251,8 +324,6 @@ function createTodoModal(todo = null){
 			addTodo();
 		} else {
 			updateTodo();
-			// todoModal.style.display = 'none';	
-			// location.reload();
 		}
 	});
 
@@ -304,6 +375,7 @@ function addTodo() {
 	todos.push(todo);
 	addToLocalStorage();
 	clearTodo();
+	location.reload();
 	// alert("Successfully added Todo!");
 
 	return todo;
@@ -340,13 +412,17 @@ function getUniqueId() {
 	return id;
   }
 
-function addToLocalStorage() {
+function addToLocalStorage(tds = null) {
+	if(tds) {
+		localStorage.setItem("todos", JSON.stringify(tds));
+		return
+	}
 	localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function updateLocalStorage() {
-	localStorage.setItem('todos', JSON.stringify(todos));
-}
+// function updateLocalStorage() {
+// 	localStorage.setItem('todos', JSON.stringify(todos));
+// }
   
 
 function getTodosFromLocalStorage() {

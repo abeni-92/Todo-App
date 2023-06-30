@@ -68,19 +68,23 @@ button:hover {
   display: flex;
   align-items: flex-start;
   background-color: rgb(99, 149, 192);
-  position: relative;
 }
 
 .sidebar {
+  position: relative;
   padding: 20px;
   width: 15vw;
+  height: 60vh;
+}
+.sidebar a {
+  font-size: 1.8rem;
 }
 
 #add-icon {
   position: absolute;
   left: 40px;
   bottom: 20px;
-  font-size: 3rem;
+  font-size: 4rem;
 }
 
 .content {
@@ -88,12 +92,20 @@ button:hover {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 60vh;
   font-size: 1.2rem;
   color: #89cff0;
   border-left: 6px solid #2b6d8b;
+  overflow-y: scroll;
 }
 
-.modal {
+#empty-content {
+  font-size: 3rem;
+  color: #502f04;
+  text-align: center;
+}
+
+.details-modal {
   display: block; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -107,14 +119,15 @@ button:hover {
   backdrop-filter: blur(3px);
 }
 
-.modal-content {
+.details-modal-content {
   position: relative;
   color: #b1d5e6;
   background-color: #2e7292;
-  margin: 20% auto; /* 15% from the top and centered */
+  margin: 20% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 500px; /* Could be more or less, depending on screen size */
+  width: 500px;
+  height: 300px;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -122,7 +135,11 @@ button:hover {
   border-radius: 10px;
   animation: 0.3s fadeIn ease-in;
 }
-.modal-content i {
+.details-modal-content h4 {
+  font-size: 1.2rem;
+  padding: 15px;
+}
+.details-modal-content i {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -136,6 +153,12 @@ button:hover {
 i:hover {
   background-color: transparent;
   color: #f0595b;
+  cursor: pointer;
+}
+
+i.edit:hover {
+  background-color: transparent;
+  color: #09b98d;
   cursor: pointer;
 }
 
