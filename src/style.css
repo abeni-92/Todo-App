@@ -46,7 +46,7 @@ button:hover {
 }
 
 .login-btn:hover {
-  color: #c95759;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -144,21 +144,18 @@ button:hover {
   top: 10px;
   right: 10px;
   font-size: 1.5rem;
-}
-
-.show-modal {
-  display: block;
+  transition: color 0.4s ease-in-out;
 }
 
 i:hover {
   background-color: transparent;
-  color: #f0595b;
+  color: #5a0c0e;
   cursor: pointer;
 }
 
 i.edit:hover {
   background-color: transparent;
-  color: #09b98d;
+  color: #2fbe9b;
   cursor: pointer;
 }
 
@@ -218,13 +215,13 @@ a {
   font-size: 1.6rem;
 }
 
-a:visited {
-  color: #502f04;
+a:hover {
+  color: #a56b20;
+  text-decoration: underline;
 }
 
-a:hover,
 .active {
-  color: #975c0d;
+  color: #a56b20;
   text-decoration: underline;
 }
 

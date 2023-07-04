@@ -3,10 +3,7 @@ import './style.css';
 function createSideBarLink(link, href) {
 	const li = newElement('li', '');
 	const a = newElement('a', link);
-
-	// a.textContent = link;
 	a.href = href;
-	a.classList.add('link');
 	li.append(a);
 
 	return li;

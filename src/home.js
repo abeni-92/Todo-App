@@ -18,19 +18,39 @@ function createNav() {
 
 function createSideBar() {
 	const sideBar = newElementWithClass('div', ['sidebar']);
-
 	const ul = newElement('ul', '');
 
 	const home = createSideBarLink('Home', '#');
+	// let h = home.querySelector('a');
+	home.querySelector('a').classList.add('active');
 	home.addEventListener('click', () => {
 		renderTodos(todos);
+		if (home.classList.contains('active')) return
+		const elt = ul.querySelector('.active');
+		elt.classList.remove('active');
+		home.querySelector('a').classList.add('active');
+		console.log(ul)
 	});
 
 	const today = createSideBarLink('Today', '#');
-	today.addEventListener('click', handleTodayFilter);
+	today.addEventListener('click', () => {
+		handleTodayFilter();
+		if (today.classList.contains('active')) return
+		const elt = ul.querySelector('.active');
+		elt.classList.remove('active');
+		today.querySelector('a').classList.add('active');
+		console.log(ul)
+	});
 
 	const week = createSideBarLink('Week', '#');
-	week.addEventListener('click', handleWeekFilter);
+	week.addEventListener('click', () => {
+		handleWeekFilter();
+		if (week.classList.contains('active')) return
+		const elt = ul.querySelector('.active');
+		elt.classList.remove('active');
+		week.querySelector('a').classList.add('active');
+		console.log(ul)
+	});
 
 	const projects = newElement('li', '');
 	projects.setAttribute("id", "projects")
@@ -41,8 +61,6 @@ function createSideBar() {
 	const gym = createSideBarLink('Gym', '#');
 	const study = createSideBarLink('Study', '#');
 	ul2.append(gym, study);
-
-	// const notes = createSideBarLink('Notes', '#');
 
 	// add button to add todolist
 	const add = newElement('li', '');
