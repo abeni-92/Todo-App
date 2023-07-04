@@ -9,8 +9,8 @@ function createNav() {
 	const nav = newElementWithClass('div', ['nav']);
 	const h1 = newElement('h1', 'TODO');
 	const login = newElement('a', 'Login');
-	login.classList.add('login-btn');
 
+	login.classList.add('login-btn');
 	nav.append(h1, login);
 
 	return nav;
@@ -19,9 +19,8 @@ function createNav() {
 function createSideBar() {
 	const sideBar = newElementWithClass('div', ['sidebar']);
 	const ul = newElement('ul', '');
-
 	const home = createSideBarLink('Home', '#');
-	// let h = home.querySelector('a');
+
 	home.querySelector('a').classList.add('active');
 	home.addEventListener('click', () => {
 		renderTodos(todos);
@@ -29,7 +28,6 @@ function createSideBar() {
 		const elt = ul.querySelector('.active');
 		elt.classList.remove('active');
 		home.querySelector('a').classList.add('active');
-		console.log(ul)
 	});
 
 	const today = createSideBarLink('Today', '#');
@@ -149,29 +147,26 @@ function createContent(){
 }
 
 function createRow(tk, dt, todo) {
+	// left side of the row
 	const row = newElementWithClass('div', ['row']);
 	const left =newElementWithClass('div', ['left']);
 	const right = newElementWithClass('div', ['right'])
-
 	const checkbox = document.createElement('input');
 	checkbox.setAttribute("type", "checkbox");
 	const task = newElement('p', tk);
-
 	left.append(checkbox, task);
 
+	// right side of the row
 	const details = newElement('button', 'details');
 	details.addEventListener("click",  () => {
 		main.append(createDetailsModal(todo));
 	});
-	
 	const date = newElement('p', dt);
-
 	const edit = newElementWithClass('i',  ['fa-pen-to-square', 'fa-solid', 'edit']);
 	const todoId = todo.id;
 	edit.addEventListener("click", () => {
 		handleEditTodo(todoId);
 	});
-
 	const del = newElementWithClass('i',  ['fa-solid', 'fa-trash-can']);
 	del.addEventListener("click", () => {
 		handleDeleteTodo(todoId);
@@ -181,13 +176,11 @@ function createRow(tk, dt, todo) {
 	row.append(left, right);
 
 	return row;
-	  
 }
 
 function handleEditTodo(todoId) {
 	// const todoId = this.dataset.todoId;
 	const todo = todos.find(todo => todo.id === todoId);
-
 	const todoModal = createTodoModal(todo);
 	
 	// Pre-fill the form fields with existing todo data
@@ -221,9 +214,7 @@ function handleEditTodo(todoId) {
 
 	main.append(todoModal);
 	
-	// Display the updated todo object
 	console.log('Updated Todo:', todo);
-
 }
 
 function handleDeleteTodo(todoId) {
@@ -275,6 +266,12 @@ function createDetailsModal(todo) {
 		 modal.classList.remove("modal");
 		 modal.remove();
 	});
+	modal.addEventListener('click', (e) => {
+		if (!(e.target.classList.contains('details-modal-content'))) {
+			modal.classList.remove("modal");
+			modal.remove();
+		}
+	})
 
 	const title = newElement('h2', todo.title);
 	const project = newElement('h4', `Project: ${todo.project}`)
@@ -297,7 +294,6 @@ function createTodoModal(todo = null){
 	const close = newElementWithClass('i', ['fa-solid', 'fa-x']);
 	close.addEventListener("click", () => {
 		todoModal.style.display = 'none';
-		// location.reload();
 	});
 	todoHeader.append(h2, close);
 
@@ -305,18 +301,38 @@ function createTodoModal(todo = null){
 
 	const todoSide = newElementWithClass('ul', ['todo-side']);
 	const todoLink = createSideBarLink('Todo', '#');
+	todoLink.querySelector('a').classList.add("active");
+	todoLink.addEventListener("click", () => {
+		if (todoLink.classList.contains('active')) return
+		const elt = todoSide.querySelector('.active');
+		elt.classList.remove('active');
+		todoLink.querySelector('a').classList.add('active');	
+	});
+
 	const projectLink = createSideBarLink('Project', '#');
-	const noteLink = createSideBarLink('Note', '#');
-	todoSide.append(todoLink, projectLink, noteLink);
+	projectLink.addEventListener('click',  () => {
+		if (projectLink.classList.contains('active')) return
+		const elt = todoSide.querySelector('.active');
+		elt.classList.remove('active');
+		projectLink.querySelector('a').classList.add('active');
+		console.log('helllo')
+	});
+
+	// const noteLink = createSideBarLink('Note', '#');
+	// noteLink.addEventListener('click', () => {
+	// 	if (noteLink.classList.contains('active')) return
+	// 	const elt = todoSide.querySelector('.active');
+	// 	elt.classList.remove('active');
+	// 	noteLink.querySelector('a').classList.add('active');
+	// })
+	todoSide.append(todoLink, projectLink);
 
 	const todoBody = newElementWithClass('div', ['todo-body']);
 
 	const title = newElement('input', '');
 	setAttributes(title, {'placeholder': 'Title: push up', 'id':'title'});
-
 	const details = newElement('textarea', '');
 	setAttributes(details, {'placeholder': 'details of the task...', 'rows': '10', 'cols':'30', 'id': 'details'})
-	
 	const date = newElement('input', '');
 	date.setAttribute("type", "date");
 	date.setAttribute("id", "date");
@@ -352,7 +368,6 @@ function createTodoModal(todo = null){
 	todoModal.append(todoModalContent);
 	
 	return todoModal;
-
 }
 
 function addTodo() {
@@ -362,22 +377,22 @@ function addTodo() {
 	const select = document.getElementById('project');
 
 	if (title.value == ''){
-		title.style.border = '2px solid red';
+		title.style.border = '3px solid red';
 		title.setAttribute("placeholder", "Title is required"); 
 		return
 	}
 	if (details.value == '') {
-		details.style.border = '2px solid red';
+		details.style.border = '3px solid red';
 		details.setAttribute("placeholder", "details is required"); 
 		return
 	} 
 	if (date.value == '') {
-		date.style.border = '2px solid red';
+		date.style.border = '3px solid red';
 		date.setAttribute("placeholder", "details is required"); 
 		return
 	}
 	if (select.value == 'Select Project') {
-		select.style.border = '2px solid red';
+		select.style.border = '3px solid red';
 		select.setAttribute("placeholder", "select project"); 
 		return
 	}
@@ -394,7 +409,6 @@ function addTodo() {
 	addToLocalStorage();
 	clearTodo();
 	location.reload();
-	// alert("Successfully added Todo!");
 
 	return todo;
 
@@ -403,11 +417,11 @@ function addTodo() {
 function validateInput(input, name, placeholder) {
 	input.addEventListener("keyup", () => {
 		if (input.value == ''){
-			input.style.border = '2px solid red';
+			input.style.border = '3px solid red';
 			input.setAttribute("placeholder", `${name} is required`);
 
 		} else {
-			input.style.border = '2px solid green';
+			input.style.border = '3px solid green';
 			input.setAttribute("placeholder", placeholder); 
 		} 
 	})
@@ -428,7 +442,7 @@ function getUniqueId() {
 	  id = todos.length > 0 ? todos[todos.length - 1].id + 1 : 0;
 	}
 	return id;
-  }
+}
 
 function addToLocalStorage(tds = null) {
 	if(tds) {
@@ -438,11 +452,6 @@ function addToLocalStorage(tds = null) {
 	localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-// function updateLocalStorage() {
-// 	localStorage.setItem('todos', JSON.stringify(todos));
-// }
-  
-
 function getTodosFromLocalStorage() {
 	const storedTodos = localStorage.getItem("todos");
 	if (storedTodos) {
@@ -450,18 +459,16 @@ function getTodosFromLocalStorage() {
 	} else {
 	  return [];
 	}
-  }
+}
   
 const todos = getTodosFromLocalStorage();
   
 function createBody() {
 	const body = newElementWithClass('div', ['body']);
-	
 	body.append(createSideBar(), createContent());
-	
+
 	return body;
 }
-	
 	
 export {createNav, createBody, createDetailsModal, createTodoModal};
 	

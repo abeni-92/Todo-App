@@ -59,7 +59,7 @@ button:hover {
 
 .main {
 	padding: 80px 100px;
-	animation: 1s fadeIn ease-in;
+	animation: 1s fadeIn ease-in-out;
 }
 
 .nav {
@@ -103,7 +103,7 @@ button:hover {
 	height: 60vh;
 	font-size: 1.2rem;
 	color: #89cff0;
-	border-left: 6px solid #2b6d8b;
+	border-left: 10px solid #2b6d8b;
 	overflow-y: scroll;
 }
 
@@ -131,7 +131,7 @@ button:hover {
 	position: relative;
 	color: #b1d5e6;;
 	background-color: #2e7292;
-	margin: 20% auto;
+	margin: 10% auto;
 	padding: 20px;
 	border: 1px solid #888;
 	width: 500px;
@@ -141,7 +141,7 @@ button:hover {
 	align-items: start;
 	justify-content: baseline;
 	border-radius: 10px;
-	animation: 0.3s fadeIn ease-in;
+	animation: .5s details-Animation ease-in;
 	h4 {
 		font-size: 1.2rem;
 		padding: 15px;
@@ -226,12 +226,12 @@ a {
 }
 
 a:hover {
-	color:#a56b20;
+	color:#b4494b;
 	text-decoration: underline;
 }
 
 .active {
-	color:#a56b20;
+	color:#c95759;
 	text-decoration: underline;
 }
 
@@ -268,7 +268,7 @@ a:hover {
 	align-items: start;
 	justify-content: baseline;
 	// border-radius: 10px;
-	animation: 0.3s fadeIn ease-in;
+	animation: 0.5s details-Animation ease-in;
 }
 
 .todo-header {
@@ -304,7 +304,7 @@ a:hover {
 }
 
 .todo-body {
-	animation: 0.3s fadeIn ease-in;
+	// animation: 1s details-animation ease-in-out;
 	position: relative;
 	display: flex;
 	flex-direction: column;
@@ -358,6 +358,24 @@ a:hover {
 
 
 @keyframes fadeIn {
+	0% {
+		opacity: 0;
+		transform: translateY(0);
+		width: 200px;
+	}
+	50% {
+		opacity: 0.5;
+		width: 400px;
+		transform: translateY(25%);
+	}
+	100% {
+		opacity: 1;
+		width: 100%;
+		transform: translateY(0);
+	}
+}
+
+@keyframes details-Animation {
 	0% {
 		opacity: 0;
 	}
